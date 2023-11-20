@@ -167,7 +167,8 @@ int main() {
         int spi_menu = 0;
         uint8_t message_buffer[1024];
         uint8_t spi0_input_buffer[1024];
-        uint8_t spi1_input_buffer[1024];
+       //not being used for now, need to test the below buffers
+       	uint8_t spi1_input_buffer[1024];
         uint8_t spi1_message_buffer[1024];
 
         init_spi_pins(SPI_PORT, 500000, SPI0_RX_PIN, SPI0_TX_PIN, SPI0_SCLK_PIN, SPI0_CS_PIN);
