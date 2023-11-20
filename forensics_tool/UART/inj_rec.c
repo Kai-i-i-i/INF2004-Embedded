@@ -1,160 +1,13 @@
-// #include <stdio.h>
-// #include "pico/stdlib.h"
-// #include "hardware/uart.h"
-// #include "hardware/gpio.h"
-// #include "pico/stdio/driver.h"
-
-// #define UART_ID uart0
-// #define BAUD_RATE 115200
-// #define UART_TX_PIN 16
-// #define UART_RX_PIN 17
-
-// #define MAX_BUFFER_SIZE 128
-
-// void receiveData()
-// {
-//     uint8_t buffer[MAX_BUFFER_SIZE];
-//     while (uart_is_readable(UART_ID))
-//     {
-//         uart_read_blocking(UART_ID, buffer, 1);
-//         printf("Received: %c\n", buffer[0]);
-//         sleep_ms(500);
-//     }
-// }
-
-// void sendData(char data)
-// {
-//     uart_write_blocking(UART_ID, (const uint8_t *)&data, 1);
-//     printf("Sent successfully: %c\n", data);
-//     sleep_ms(500);
-// }
-
-// int main()
-// {
-//     stdio_init_all();
-
-//     // Configure UART pins
-//     uart_init(UART_ID, BAUD_RATE);
-//     gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
-//     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
-
-//     // Set UART pins
-//     // uart_set_baudrate(UART_ID, BAUD_RATE);
-//     // uart_set_hw_flow(UART_ID, false, false); // No hardware flow control
-
-//     // Configure custom pins for input and output
-//     gpio_init(UART_TX_PIN);
-//     gpio_init(UART_RX_PIN);
-//     gpio_set_dir(UART_TX_PIN, GPIO_OUT);
-//     gpio_set_dir(UART_RX_PIN, GPIO_IN);
-
-//     // while (true)
-//     // {
-//     //     // Mode Switching
-//     //     char mode;
-//     //     printf("Enter mode (1 for intercept, 2 for inject): ");
-//     //     scanf(" %c", &mode); // Added a space before %c to consume the
-//     newline character
-
-//     //     if (mode == '1')
-//     //     {
-//     //         receiveData();
-//     //     }
-//     //     else if (mode == '2')
-//     //     {
-//     //         printf("Switched to inject mode. Enter data to send: ");
-//     //         char data;
-//     //         scanf(" %c", &data);
-//     //         sendData(data);
-//     //     }
-//     // }
-
-//     while (true)
-//     {
-//         // Check if there is data available to read
-//         if (uart_is_readable(UART_ID))
-//         {
-//             char mode = uart_getc(UART_ID);
-
-//             // Handle the newline character to avoid processing it as a mode
-//             if (mode != '\n')
-//             {
-//                 if (mode == '1')
-//                 {
-//                     receiveData();
-//                 }
-//                 else if (mode == '2')
-//                 {
-//                     printf("Switched to inject mode. Enter data to send: ");
-//                     char data = uart_getc(UART_ID);
-//                     // scanf(" %c", &data);
-//                     sendData(data);
-//                 }
-//             }
-//         }
-//     }
-
-//     return 0;
-// }
-
-// #include <stdio.h>
-// #include "mongoose.h"
-// #include "pico/cyw43_arch.h"
-// #include "pico/stdlib.h"
-
-// #define WIFI_SSID ""
-// #define WIFI_PASSWORD ""
-
-// static void http_handler(struct mg_connection *c, int ev, void *ev_data,
-//                          void *fn_data);
-
-// int main() {
-//   stdio_init_all();
-//   if (cyw43_arch_init()) {
-//     printf("failed to initialise\n");
-//   }
-//   cyw43_arch_enable_sta_mode();
-//   printf("Connecting to Wi-Fi...\n");
-//   if (cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_PASSWORD,
-//                                          CYW43_AUTH_WPA2_AES_PSK, 30000)) {
-//     printf("failed to connect.\n");
-//     exit(1);
-//   } else {
-//     printf("Connected.\n");
-//     // Print IP address after successful connection
-//     printf("Connected to Wi-Fi. IP address: %s\n", cyw43_get_ip_address());
-//   }
-
-//   // Initialize Mongoose manager
-//   struct mg_mgr mgr;
-//   mg_mgr_init(&mgr);  // Init manager
-//   mg_http_listen(&mgr, "http://0.0.0.0:8000", http_handler,
-//                  NULL);              // Setup HTTP listener
-//   for (;;) mg_mgr_poll(&mgr, 1000);  // Infinite event loop
-
-//   return 0;
-// }
-
-// static void http_handler(struct mg_connection *c, int ev, void *ev_data,
-//                          void *fn_data) {
-//   if (ev == MG_EV_HTTP_MSG) {
-//     struct mg_http_message *hm = (struct mg_http_message *) ev_data;
-//     if (mg_http_match_uri(hm, "/api/hello")) {
-//       // On /api/hello requests, send dynamic JSON response
-//       mg_http_reply(c, 200, "", "{%m:%d}\n", MG_ESC("status"), 1);
-//     } else {
-//       // For all other URIs, serve files from root_dir
-//       struct mg_http_serve_opts opts = {.root_dir = "."};
-//       mg_http_serve_dir(c, hm, &opts);
-//     }
-//   }
-// }
-
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include <string.h>
 #include "hardware/gpio.h"
 #include "hardware/uart.h"
 #include "pico/stdlib.h"
+#include "menu/menu.h"
+#include "SPIFUNCS/SPIFUNCS.h"
+#include "conversion/conversion.h"
 
 #define UART_ID uart0
 #define BAUD_RATE 115200
@@ -256,6 +109,11 @@ int main() {
   // Initialize.
   stdio_init_all();
 
+  //menu tracker things
+  char menu_buffer[1024];
+  int in_menu = 0;
+  int menu_activated = 1;
+
   // Initialize UART0 (uart0)
   uart_init(UART_ID, BAUD_RATE);
 //   uart_set_format(UART_ID, 8, 1, UART_PARITY_NONE);
@@ -280,17 +138,73 @@ int main() {
     // send_data();     // Call the function to send or receive data based on
     // GP15's state sleep_ms(1000);   // Wait for 1 second between cycles
 
-    if (gpio_get(GP15_PIN)) {
-      inject();
-      sleep_ms(10);
-      test_uart1_rx();  // Call the function to test UART1 communication (RX) only when GP15 is high
-
-    } else {
-      test_uart1_tx();  // Call the function to test UART1 communication (TX) only when GP15 is low
-      sleep_ms(10);
-      sniff();
+    if (scanf("%s", menu_buffer)) {
+      menu_activated = 0;
     }
-    sleep_ms(500);  // Wait for 0.5 seconds between cycles
+    if (menu_activated == 0 && in_menu == 0) {
+      print_menu();
+      scanf("%s", menu_buffer);
+      in_menu = 1;
+      if (strcmp(menu_buffer, "2") == 0) {
+        //selected UART
+
+        while (1) {
+        if (gpio_get(GP15_PIN)) {
+          inject();
+          sleep_ms(10);
+          test_uart1_rx(); // Call the function to test UART1 communication (RX) only when GP15 is high
+        }
+        else {
+          test_uart1_tx(); // Call the function to test UART1 communication (TX) only when GP15 is low
+          sleep_ms(10);
+          sniff();
+        }
+        sleep_ms(500); // Wait for 0.5 seconds between cycles
+        }
+      }
+
+      if (strcmp(menu_buffer, "3") == 0) {
+        int spi_menu = 0;
+        uint8_t message_buffer[1024];
+        uint8_t spi0_input_buffer[1024];
+        uint8_t spi1_input_buffer[1024];
+        uint8_t spi1_message_buffer[1024];
+
+        init_spi_pins(SPI_PORT, 500000, SPI0_RX_PIN, SPI0_TX_PIN, SPI0_SCLK_PIN, SPI0_CS_PIN);
+        init_spi_pins(SPI1_PORT, 500000, SPI1_RX_PIN, SPI1_TX_PIN, SPI1_SCLK_PIN, SPI1_CS_PIN);
+        spi_set_slave(SPI_PORT, true);
+
+        printf("1. Sniff");
+        printf("\n2. Inject");
+        scanf("%d", &spi_menu);
+
+        if (spi_menu == 1) {
+          while (1) {
+            spi_write_read_blocking(SPI_PORT, spi0_input_buffer,message_buffer, 4); //read from master on left, write to master on left
+            spi_write_read_blocking(SPI1_PORT, message_buffer, spi0_input_buffer, 4); //write to slave on right, read from slave on right
+            //printf("test after func");
+            for (int i = 0; i < 4; i++) {
+            printf("message from spi: %x\n", message_buffer[i]);
+            }
+          }
+        }
+        if (spi_menu == 2) {
+          uint8_t injected_input[1024];
+          char user_hex_input[1024];
+          printf("Enter bytes to send (eg. ff00112233): ");
+          scanf("%s", user_hex_input);
+          int input_len = count_char(user_hex_input);
+          size_t test = convert_hex(injected_input, input_len, user_hex_input);
+
+          while (1) {
+              //spi_write_read_blocking(SPI1_PORT, message_buffer, )
+              spi_write_read_blocking(SPI_PORT, spi0_input_buffer, message_buffer, 4); //read from master on left, write to master on left
+              spi_write_read_blocking(SPI1_PORT, injected_input, spi0_input_buffer, 4); //write to slave with injected input on right, read from slave on right
+          }
+        }
+      }
+    }
+
   }
 
   return 0;
