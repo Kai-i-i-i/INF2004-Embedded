@@ -37,4 +37,3 @@ This project aims to develop an integrated Embedded Forensic Tool utilizing the 
 
 ![Flow Diagram](https://user-images.githubusercontent.com/81953271/124010886-b571ca80-d9df-11eb-86ac-b358c48ac6aa.png "Flow_Diagram")
 
-[Link to Diagrams](https://drive.google.com/file/d/1QPLTekT22mFCFvSziW22566VhCLxSH7P/view?usp=sharing "diagram_links")
