@@ -66,6 +66,8 @@ void sniff() {
   }
 }
 
+//test test
+
 // Function to test UART1 communication
 void test_uart1_tx() {
     char *testString = "Hello from Pin 8!\n";
@@ -108,30 +110,13 @@ void test_uart1_rx() {
 int main() {
   // Initialize.
   stdio_init_all();
+  printf("hello");
 
   //menu tracker things
   char menu_buffer[1024];
   int in_menu = 0;
   int menu_activated = 1;
-
-  // Initialize UART0 (uart0)
-  uart_init(UART_ID, BAUD_RATE);
-//   uart_set_format(UART_ID, 8, 1, UART_PARITY_NONE);
-  gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
-  gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
-
-  // Initialize UART1 (uart1) for testing
-  uart_init(uart1, BAUD_RATE);
-//   uart_set_format(uart1, 8, 1, UART_PARITY_NONE);
-  gpio_set_function(UART_TX_PIN_TESTING, GPIO_FUNC_UART);
-  gpio_set_function(UART_RX_PIN_TESTING, GPIO_FUNC_UART);
-
-  gpio_init(GP15_PIN);
-
-  // Set GP15 (GPIO15) as an input pin to read its state.
-  gpio_set_dir(GP15_PIN, GPIO_IN);
-  gpio_set_pulls(GP15_PIN, true, false);
-
+  
   while (true) {
     // test_uart1_tx(); // Call the function to test UART1 communication (TX)
     // test_uart1_rx(); // Call the function to test UART1 communication (RX)
@@ -144,10 +129,30 @@ int main() {
     if (menu_activated == 0 && in_menu == 0) {
       print_menu();
       scanf("%s", menu_buffer);
+      printf("menubuffer= %s\n", menu_buffer);
+      printf("strcmp return: %d", strcmp(menu_buffer, "3"));
       in_menu = 1;
       if (strcmp(menu_buffer, "2") == 0) {
         //selected UART
+        printf("uart selected");
+         // Initialize UART0 (uart0)
+        uart_init(UART_ID, BAUD_RATE);
+      //   uart_set_format(UART_ID, 8, 1, UART_PARITY_NONE);
+        gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
+        gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
 
+        // Initialize UART1 (uart1) for testing
+        uart_init(uart1, BAUD_RATE);
+      //   uart_set_format(uart1, 8, 1, UART_PARITY_NONE);
+        gpio_set_function(UART_TX_PIN_TESTING, GPIO_FUNC_UART);
+        gpio_set_function(UART_RX_PIN_TESTING, GPIO_FUNC_UART);
+
+        gpio_init(GP15_PIN);
+
+        // Set GP15 (GPIO15) as an input pin to read its state.
+        gpio_set_dir(GP15_PIN, GPIO_IN);
+        gpio_set_pulls(GP15_PIN, true, false);
+        
         while (1) {
         if (gpio_get(GP15_PIN)) {
           inject();
@@ -162,15 +167,13 @@ int main() {
         sleep_ms(500); // Wait for 0.5 seconds between cycles
         }
       }
-
+      
       if (strcmp(menu_buffer, "3") == 0) {
         int spi_menu = 0;
         uint8_t message_buffer[1024];
         uint8_t spi0_input_buffer[1024];
-        
-        //not being used for now, need to test the below buffers
-        //uint8_t spi1_input_buffer[1024];
-        //uint8_t spi1_message_buffer[1024];
+        int in_spi_sniff = 0;
+        int in_spi_inject = 0;
 
         init_spi_pins(SPI_PORT, 500000, SPI0_RX_PIN, SPI0_TX_PIN, SPI0_SCLK_PIN, SPI0_CS_PIN);
         init_spi_pins(SPI1_PORT, 500000, SPI1_RX_PIN, SPI1_TX_PIN, SPI1_SCLK_PIN, SPI1_CS_PIN);
@@ -181,12 +184,13 @@ int main() {
         scanf("%d", &spi_menu);
 
         if (spi_menu == 1) {
-          while (1) {
+          while (in_spi_sniff != 1) {
             spi_write_read_blocking(SPI_PORT, spi0_input_buffer,message_buffer, 4); //read from master on left, write to master on left
             spi_write_read_blocking(SPI1_PORT, message_buffer, spi0_input_buffer, 4); //write to slave on right, read from slave on right
-            //printf("test after func");
             for (int i = 0; i < 4; i++) {
             printf("message from spi: %x\n", message_buffer[i]);
+            printf("message writing to spi: %x\n", message_buffer[i]);
+            printf("\n");
             }
           }
         }
@@ -196,12 +200,18 @@ int main() {
           printf("Enter bytes to send (eg. ff00112233): ");
           scanf("%s", user_hex_input);
           int input_len = count_char(user_hex_input);
-          size_t test = convert_hex(injected_input, input_len, user_hex_input);
+          size_t hexa = convert_hex(injected_input, input_len, user_hex_input);
 
-          while (1) {
+          while (in_spi_inject != 1) {
               //spi_write_read_blocking(SPI1_PORT, message_buffer, )
-              spi_write_read_blocking(SPI_PORT, spi0_input_buffer, message_buffer, 4); //read from master on left, write to master on left
-              spi_write_read_blocking(SPI1_PORT, injected_input, spi0_input_buffer, 4); //write to slave with injected input on right, read from slave on right
+              spi_write_read_blocking(SPI_PORT, spi0_input_buffer, message_buffer, hexa); //read from master on left, write to master on left
+              spi_write_read_blocking(SPI1_PORT, injected_input, spi0_input_buffer, hexa); //write to slave with injected input on right, read from slave on right
+              for (int i = 0; i < input_len; i++) {
+                printf("messaged from spi1: %x\n", message_buffer[i]);
+                printf("messaged writing to spi1: %x\n", injected_input[i]);
+                printf("received from ruizhe: %x\n", spi0_input_buffer[i]);
+                printf("\n");
+              }
           }
         }
       }
