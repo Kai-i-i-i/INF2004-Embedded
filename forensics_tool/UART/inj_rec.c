@@ -191,9 +191,9 @@ int main() {
             spi_write_read_blocking(SPI_PORT, spi0_input_buffer,message_buffer, 4); //read from master on left, write to master on left
             spi_write_read_blocking(SPI1_PORT, message_buffer, spi0_input_buffer, 4); //write to slave on right, read from slave on right
             for (int i = 0; i < 4; i++) {
-            printf("message from spi: %x\n", message_buffer[i]);
-            printf("message writing to spi: %x\n", message_buffer[i]);
-            printf("\n");
+              printf("message from spi: %x\n", message_buffer[i]);
+              printf("message writing to spi: %x\n", message_buffer[i]);
+              printf("\n");
             }
           }
         }
