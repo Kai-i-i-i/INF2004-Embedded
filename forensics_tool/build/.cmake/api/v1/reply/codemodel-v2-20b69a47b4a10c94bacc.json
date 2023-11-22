@@ -797,8 +797,8 @@
 					"source" : "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/tinyusb",
 					"targetIndexes" : 
 					[
-						11,
-						12
+						14,
+						15
 					]
 				},
 				{
@@ -861,7 +861,7 @@
 					"source" : "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/pico_cyw43_driver",
 					"targetIndexes" : 
 					[
-						3
+						4
 					]
 				},
 				{
@@ -1074,7 +1074,7 @@
 					"source" : "C:/Users/Fish/Documents/Pico-v1.5.1/pico-extras/src/common/pico_scanvideo",
 					"targetIndexes" : 
 					[
-						9
+						11
 					]
 				},
 				{
@@ -1168,7 +1168,7 @@
 					"source" : "C:/Users/Fish/Documents/Pico-v1.5.1/pico-extras/src/rp2_common/pico_audio_i2s",
 					"targetIndexes" : 
 					[
-						5
+						7
 					]
 				},
 				{
@@ -1183,7 +1183,7 @@
 					"source" : "C:/Users/Fish/Documents/Pico-v1.5.1/pico-extras/src/rp2_common/pico_audio_pwm",
 					"targetIndexes" : 
 					[
-						6
+						8
 					]
 				},
 				{
@@ -1198,7 +1198,7 @@
 					"source" : "C:/Users/Fish/Documents/Pico-v1.5.1/pico-extras/src/rp2_common/pico_audio_spdif",
 					"targetIndexes" : 
 					[
-						7
+						9
 					]
 				},
 				{
@@ -1213,7 +1213,7 @@
 					"source" : "C:/Users/Fish/Documents/Pico-v1.5.1/pico-extras/src/rp2_common/pico_sd_card",
 					"targetIndexes" : 
 					[
-						10
+						12
 					]
 				},
 				{
@@ -1228,7 +1228,7 @@
 					"source" : "C:/Users/Fish/Documents/Pico-v1.5.1/pico-extras/src/rp2_common/pico_scanvideo_dpi",
 					"targetIndexes" : 
 					[
-						8
+						10
 					]
 				},
 				{
@@ -1277,6 +1277,12 @@
 				},
 				{
 					"build" : "UART",
+					"childIndexes" : 
+					[
+						101,
+						102,
+						103
+					],
 					"jsonFile" : "directory-UART-Debug-889aaeb883bdfe4df253.json",
 					"minimumCMakeVersion" : 
 					{
@@ -1287,7 +1293,52 @@
 					"source" : "UART",
 					"targetIndexes" : 
 					[
-						4
+						5
+					]
+				},
+				{
+					"build" : "UART/conversion",
+					"jsonFile" : "directory-UART.conversion-Debug-bec54db75ed70486757c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 100,
+					"projectIndex" : 0,
+					"source" : "UART/conversion",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "UART/SPIFUNCS",
+					"jsonFile" : "directory-UART.SPIFUNCS-Debug-e6fd8ee4f0de1ea611ab.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 100,
+					"projectIndex" : 0,
+					"source" : "UART/SPIFUNCS",
+					"targetIndexes" : 
+					[
+						13
+					]
+				},
+				{
+					"build" : "UART/menu",
+					"jsonFile" : "directory-UART.menu-Debug-69cb675fff173f897e7e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 100,
+					"projectIndex" : 0,
+					"source" : "UART/menu",
+					"targetIndexes" : 
+					[
+						6
 					]
 				}
 			],
@@ -1303,12 +1354,18 @@
 					"directoryIndexes" : 
 					[
 						0,
-						100
+						100,
+						101,
+						102,
+						103
 					],
 					"name" : "pico_examples",
 					"targetIndexes" : 
 					[
-						4
+						3,
+						5,
+						6,
+						13
 					]
 				},
 				{
@@ -1428,15 +1485,15 @@
 						0,
 						1,
 						2,
-						3,
-						5,
-						6,
+						4,
 						7,
 						8,
 						9,
 						10,
 						11,
-						12
+						12,
+						14,
+						15
 					]
 				}
 			],
@@ -1464,6 +1521,13 @@
 					"projectIndex" : 2
 				},
 				{
+					"directoryIndex" : 101,
+					"id" : "conversions::@0c3ac67646127e906035",
+					"jsonFile" : "target-conversions-Debug-4c3c65a6baab9e8b01d3.json",
+					"name" : "conversions",
+					"projectIndex" : 0
+				},
+				{
 					"directoryIndex" : 67,
 					"id" : "cyw43_driver_picow_cyw43_bus_pio_spi_pio_h::@c2fb4f534018e64680d5",
 					"jsonFile" : "target-cyw43_driver_picow_cyw43_bus_pio_spi_pio_h-Debug-208d5fbd8885f908aba0.json",
@@ -1473,8 +1537,15 @@
 				{
 					"directoryIndex" : 100,
 					"id" : "inj_rec::@a85fba459ebd28485893",
-					"jsonFile" : "target-inj_rec-Debug-1b567c1e8d7707a9dbd5.json",
+					"jsonFile" : "target-inj_rec-Debug-4107b31c2a6499487c0e.json",
 					"name" : "inj_rec",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 103,
+					"id" : "menu::@b4bd9f49ace3e0468c9a",
+					"jsonFile" : "target-menu-Debug-7bbb1b73e37cf90ed6b3.json",
+					"name" : "menu",
 					"projectIndex" : 0
 				},
 				{
@@ -1518,6 +1589,13 @@
 					"jsonFile" : "target-pico_sd_card_sd_card_pio_h-Debug-5d0c5b2c203b9307138c.json",
 					"name" : "pico_sd_card_sd_card_pio_h",
 					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 102,
+					"id" : "spi_stuff::@4f86ca5d3e09b1b9e460",
+					"jsonFile" : "target-spi_stuff-Debug-964aab04c5764ee525d5.json",
+					"name" : "spi_stuff",
+					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 62,

@@ -213,3 +213,12 @@ C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/pico-sdk/do
 C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/CMakeFiles/inj_rec.dir
 C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/CMakeFiles/edit_cache.dir
 C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/CMakeFiles/rebuild_cache.dir
+C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/conversion/CMakeFiles/conversions.dir
+C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/conversion/CMakeFiles/edit_cache.dir
+C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/conversion/CMakeFiles/rebuild_cache.dir
+C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/SPIFUNCS/CMakeFiles/spi_stuff.dir
+C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/SPIFUNCS/CMakeFiles/edit_cache.dir
+C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/SPIFUNCS/CMakeFiles/rebuild_cache.dir
+C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/menu/CMakeFiles/menu.dir
+C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/menu/CMakeFiles/edit_cache.dir
+C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/menu/CMakeFiles/rebuild_cache.dir

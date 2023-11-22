@@ -43,7 +43,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 7,
+				"line" : 11,
 				"parent" : 0
 			},
 			{
@@ -85,7 +85,7 @@
 			{
 				"command" : 7,
 				"file" : 0,
-				"line" : 41,
+				"line" : 28,
 				"parent" : 0
 			},
 			{
@@ -103,7 +103,7 @@
 			{
 				"command" : 8,
 				"file" : 0,
-				"line" : 38,
+				"line" : 25,
 				"parent" : 0
 			},
 			{
@@ -518,6 +518,10 @@
 				{
 					"backtrace" : 2,
 					"path" : "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/hardware_spi/include"
 				}
 			],
 			"language" : "C",
@@ -589,7 +593,8 @@
 				67,
 				68,
 				69,
-				70
+				70,
+				71
 			]
 		},
 		{
@@ -991,6 +996,10 @@
 				{
 					"backtrace" : 2,
 					"path" : "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/hardware_spi/include"
 				}
 			],
 			"language" : "ASM",
@@ -1427,6 +1436,10 @@
 				{
 					"backtrace" : 2,
 					"path" : "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/hardware_spi/include"
 				}
 			],
 			"language" : "CXX",
@@ -1449,6 +1462,18 @@
 		{
 			"backtrace" : 6,
 			"id" : "bs2_default_padded_checksummed_asm::@bc554eaed616d198a22d"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "conversions::@0c3ac67646127e906035"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "spi_stuff::@4f86ca5d3e09b1b9e460"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "menu::@b4bd9f49ace3e0468c9a"
 		}
 	],
 	"id" : "inj_rec::@a85fba459ebd28485893",
@@ -2280,6 +2305,21 @@
 				"role" : "flags"
 			},
 			{
+				"backtrace" : 2,
+				"fragment" : "UART\\SPIFUNCS\\libspi_stuff.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "UART\\conversion\\libconversions.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "UART\\menu\\libmenu.a",
+				"role" : "libraries"
+			},
+			{
 				"backtrace" : 5,
 				"fragment" : "pico-sdk\\src\\rp2_common\\boot_stage2\\bs2_default_padded_checksummed.S",
 				"role" : "libraries"
@@ -2359,7 +2399,8 @@
 				67,
 				68,
 				69,
-				70
+				70,
+				71
 			]
 		},
 		{
@@ -2806,6 +2847,12 @@
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
 			"path" : "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/hardware_spi/spi.c",
 			"sourceGroupIndex" : 0
 		}
 	],

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/UART
+# Install script for directory: C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/UART/menu
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,13 +35,5 @@ endif()
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
   set(CMAKE_OBJDUMP "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/gcc-arm-none-eabi/bin/arm-none-eabi-objdump.exe")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  include("C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/conversion/cmake_install.cmake")
-  include("C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/SPIFUNCS/cmake_install.cmake")
-  include("C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/menu/cmake_install.cmake")
-
 endif()
 

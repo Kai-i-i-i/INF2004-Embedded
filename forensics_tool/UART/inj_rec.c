@@ -48,6 +48,9 @@ void sniff() {
       // If a newline character is received, print the received string
       printf("Received string: %s\n", receivedString);
 
+      // Added line to "forward" recieved message out after printing
+      uart_puts(uart1, receivedString);
+
       // Reset the received string index and received string
       receivedStringIndex = 0;
       memset(receivedString, 0, sizeof(receivedString));
@@ -71,7 +74,7 @@ void sniff() {
 // Function to test UART1 communication
 void test_uart1_tx() {
     char *testString = "Hello from Pin 8!\n";
-    uart_puts(uart1, testString); // Change back to UART1 later
+    uart_puts(uart1, testString); // Change back to UART0 later
     sleep_ms(200);
 }
 
