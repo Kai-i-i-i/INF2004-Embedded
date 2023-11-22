@@ -33,7 +33,7 @@ This project aims to develop an integrated Embedded Forensic Tool utilizing the 
 
 ## Block and Flow Diagrams
 
-![Block Diagram](https://user-images.githubusercontent.com/81953271/124010886-b571ca80-d9df-11eb-86ac-b358c48ac6aa.png "Block_Diagram")
+![Block Diagram](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/Block.png "Block_Diagram")
 
-![Flow Diagram](https://user-images.githubusercontent.com/81953271/124010886-b571ca80-d9df-11eb-86ac-b358c48ac6aa.png "Flow_Diagram")
+![Flow Diagram](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/Flow.png "Flow_Diagram")
 
