@@ -5,7 +5,7 @@
 #include "hardware/uart.h"
 #include "pico/stdlib.h"
 
-#define UART_ID uart1
+#define UART_ID uart0
 #define BAUD_RATE 115200
 
 #define UART_TX_PIN 8
