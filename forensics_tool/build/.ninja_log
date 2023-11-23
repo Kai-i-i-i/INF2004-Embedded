@@ -366,3 +366,5 @@
 5167	5492	7224176676269088	UART/menu/CMakeFiles/menu.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj	3f5935e92d965a4
 31	387	7224247022309120	UART/CMakeFiles/inj_rec.dir/inj_rec.c.obj	4cae05f1c436ced3
 388	944	7224247025313108	UART/inj_rec.elf	1f36ae4eb65d6dad
+26	236	7224253503901874	testing/CMakeFiles/uart_test_tx.dir/uart_test_tx.c.obj	45a91ef99810dc8d
+236	1060	7224253509984849	testing/uart_test_tx.elf	46b999e90e221d23

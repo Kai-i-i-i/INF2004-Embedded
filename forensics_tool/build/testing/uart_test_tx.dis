@@ -362,7 +362,7 @@ Disassembly of section .text:
 10000340:	2b00      	cmp	r3, #0
 10000342:	d1e4      	bne.n	1000030e <test_uart1_tx+0xa>
 10000344:	4b17      	ldr	r3, [pc, #92]	; (100003a4 <test_uart1_tx+0xa0>)
-10000346:	2202      	movs	r2, #2
+10000346:	2200      	movs	r2, #0
 10000348:	5e9b      	ldrsh	r3, [r3, r2]
 1000034a:	42a3      	cmp	r3, r4
 1000034c:	d00f      	beq.n	1000036e <test_uart1_tx+0x6a>
@@ -405,7 +405,7 @@ Disassembly of section .text:
 10000398:	bd30      	pop	{r4, r5, pc}
 1000039a:	46c0      	nop			; (mov r8, r8)
 1000039c:	10006c40 	.word	0x10006c40
-100003a0:	40038000 	.word	0x40038000
+100003a0:	40034000 	.word	0x40034000
 100003a4:	20001a38 	.word	0x20001a38
 
 100003a8 <main>:
@@ -424,7 +424,7 @@ Disassembly of section .text:
 100003c8:	f7ff ff9c 	bl	10000304 <test_uart1_tx>
 100003cc:	e7fc      	b.n	100003c8 <main+0x20>
 100003ce:	46c0      	nop			; (mov r8, r8)
-100003d0:	40038000 	.word	0x40038000
+100003d0:	40034000 	.word	0x40034000
 
 100003d4 <gpio_set_function>:
 100003d4:	b510      	push	{r4, lr}
