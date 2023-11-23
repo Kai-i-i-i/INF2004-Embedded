@@ -32,4 +32,5 @@ endif()
 # Hardware-specific examples in subdirectories:
 if (NOT PICO_NO_HARDWARE)
     add_subdirectory(UART)
+    add_subdirectory(testing)
 endif ()

@@ -10,7 +10,8 @@
 					[
 						1,
 						2,
-						100
+						100,
+						104
 					],
 					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
@@ -1340,6 +1341,22 @@
 					[
 						6
 					]
+				},
+				{
+					"build" : "testing",
+					"jsonFile" : "directory-testing-Debug-ceb00a1e29d07a49f742.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "testing",
+					"targetIndexes" : 
+					[
+						16,
+						17
+					]
 				}
 			],
 			"name" : "Debug",
@@ -1357,7 +1374,8 @@
 						100,
 						101,
 						102,
-						103
+						103,
+						104
 					],
 					"name" : "pico_examples",
 					"targetIndexes" : 
@@ -1365,7 +1383,9 @@
 						3,
 						5,
 						6,
-						13
+						13,
+						16,
+						17
 					]
 				},
 				{
@@ -1537,7 +1557,7 @@
 				{
 					"directoryIndex" : 100,
 					"id" : "inj_rec::@a85fba459ebd28485893",
-					"jsonFile" : "target-inj_rec-Debug-4107b31c2a6499487c0e.json",
+					"jsonFile" : "target-inj_rec-Debug-0b54944ea53b57fc64b9.json",
 					"name" : "inj_rec",
 					"projectIndex" : 0
 				},
@@ -1610,6 +1630,20 @@
 					"jsonFile" : "target-tinyusb_pico_pio_usb_usb_tx_pio_h-Debug-084685bf0f66cde330c2.json",
 					"name" : "tinyusb_pico_pio_usb_usb_tx_pio_h",
 					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 104,
+					"id" : "uart_test_rx::@7f5979fb78f082e8b1c6",
+					"jsonFile" : "target-uart_test_rx-Debug-8de6fefa967680056a2e.json",
+					"name" : "uart_test_rx",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 104,
+					"id" : "uart_test_tx::@7f5979fb78f082e8b1c6",
+					"jsonFile" : "target-uart_test_tx-Debug-791752a3ad1f878e8f5a.json",
+					"name" : "uart_test_tx",
+					"projectIndex" : 0
 				}
 			]
 		}
