@@ -226,3 +226,6 @@ C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/testing/CMa
 C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/testing/CMakeFiles/uart_test_tx.dir
 C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/testing/CMakeFiles/edit_cache.dir
 C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/testing/CMakeFiles/rebuild_cache.dir
+C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/i2c_proj/CMakeFiles/i2c_proj.dir
+C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/i2c_proj/CMakeFiles/edit_cache.dir
+C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/i2c_proj/CMakeFiles/rebuild_cache.dir

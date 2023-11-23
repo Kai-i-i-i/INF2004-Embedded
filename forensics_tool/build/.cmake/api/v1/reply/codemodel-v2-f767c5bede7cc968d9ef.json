@@ -11,7 +11,8 @@
 						1,
 						2,
 						100,
-						104
+						104,
+						105
 					],
 					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
@@ -798,8 +799,8 @@
 					"source" : "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk/src/rp2_common/tinyusb",
 					"targetIndexes" : 
 					[
-						14,
-						15
+						15,
+						16
 					]
 				},
 				{
@@ -1075,7 +1076,7 @@
 					"source" : "C:/Users/Fish/Documents/Pico-v1.5.1/pico-extras/src/common/pico_scanvideo",
 					"targetIndexes" : 
 					[
-						11
+						12
 					]
 				},
 				{
@@ -1169,7 +1170,7 @@
 					"source" : "C:/Users/Fish/Documents/Pico-v1.5.1/pico-extras/src/rp2_common/pico_audio_i2s",
 					"targetIndexes" : 
 					[
-						7
+						8
 					]
 				},
 				{
@@ -1184,7 +1185,7 @@
 					"source" : "C:/Users/Fish/Documents/Pico-v1.5.1/pico-extras/src/rp2_common/pico_audio_pwm",
 					"targetIndexes" : 
 					[
-						8
+						9
 					]
 				},
 				{
@@ -1199,7 +1200,7 @@
 					"source" : "C:/Users/Fish/Documents/Pico-v1.5.1/pico-extras/src/rp2_common/pico_audio_spdif",
 					"targetIndexes" : 
 					[
-						9
+						10
 					]
 				},
 				{
@@ -1214,7 +1215,7 @@
 					"source" : "C:/Users/Fish/Documents/Pico-v1.5.1/pico-extras/src/rp2_common/pico_sd_card",
 					"targetIndexes" : 
 					[
-						12
+						13
 					]
 				},
 				{
@@ -1229,7 +1230,7 @@
 					"source" : "C:/Users/Fish/Documents/Pico-v1.5.1/pico-extras/src/rp2_common/pico_scanvideo_dpi",
 					"targetIndexes" : 
 					[
-						10
+						11
 					]
 				},
 				{
@@ -1294,7 +1295,7 @@
 					"source" : "UART",
 					"targetIndexes" : 
 					[
-						5
+						6
 					]
 				},
 				{
@@ -1324,7 +1325,7 @@
 					"source" : "UART/SPIFUNCS",
 					"targetIndexes" : 
 					[
-						13
+						14
 					]
 				},
 				{
@@ -1339,7 +1340,7 @@
 					"source" : "UART/menu",
 					"targetIndexes" : 
 					[
-						6
+						7
 					]
 				},
 				{
@@ -1354,8 +1355,23 @@
 					"source" : "testing",
 					"targetIndexes" : 
 					[
-						16,
-						17
+						17,
+						18
+					]
+				},
+				{
+					"build" : "i2c_proj",
+					"jsonFile" : "directory-i2c_proj-Debug-90b7ee21e832a305809d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "i2c_proj",
+					"targetIndexes" : 
+					[
+						5
 					]
 				}
 			],
@@ -1375,7 +1391,8 @@
 						101,
 						102,
 						103,
-						104
+						104,
+						105
 					],
 					"name" : "pico_examples",
 					"targetIndexes" : 
@@ -1383,9 +1400,10 @@
 						3,
 						5,
 						6,
-						13,
-						16,
-						17
+						7,
+						14,
+						17,
+						18
 					]
 				},
 				{
@@ -1506,14 +1524,14 @@
 						1,
 						2,
 						4,
-						7,
 						8,
 						9,
 						10,
 						11,
 						12,
-						14,
-						15
+						13,
+						15,
+						16
 					]
 				}
 			],
@@ -1555,9 +1573,16 @@
 					"projectIndex" : 2
 				},
 				{
+					"directoryIndex" : 105,
+					"id" : "i2c_proj::@59cf24e4178260c249ed",
+					"jsonFile" : "target-i2c_proj-Debug-ec38d524188e295c9255.json",
+					"name" : "i2c_proj",
+					"projectIndex" : 0
+				},
+				{
 					"directoryIndex" : 100,
 					"id" : "inj_rec::@a85fba459ebd28485893",
-					"jsonFile" : "target-inj_rec-Debug-0b54944ea53b57fc64b9.json",
+					"jsonFile" : "target-inj_rec-Debug-8b50fc9da2326f335320.json",
 					"name" : "inj_rec",
 					"projectIndex" : 0
 				},

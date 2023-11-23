@@ -43,6 +43,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/pico-sdk/cmake_install.cmake")
   include("C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/UART/cmake_install.cmake")
   include("C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/testing/cmake_install.cmake")
+  include("C:/Users/Fish/Documents/GitHub/INF2004-Embedded/forensics_tool/build/i2c_proj/cmake_install.cmake")
 
 endif()
 
