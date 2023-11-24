@@ -113,7 +113,6 @@ void test_uart1_rx() {
 int main() {
   // Initialize.
   stdio_init_all();
-  printf("hello");
 
   //menu tracker things
   char menu_buffer[1024];
@@ -132,8 +131,8 @@ int main() {
     if (menu_activated == 0 && in_menu == 0) {
       print_menu();
       scanf("%s", menu_buffer);
-      printf("menubuffer= %s\n", menu_buffer);
-      printf("strcmp return: %d", strcmp(menu_buffer, "3"));
+      //printf("menubuffer= %s\n", menu_buffer);
+      //printf("strcmp return: %d", strcmp(menu_buffer, "3"));
       in_menu = 1;
       if (strcmp(menu_buffer, "2") == 0) {
         //selected UART
@@ -189,7 +188,15 @@ int main() {
         if (spi_menu == 1) {
           while (in_spi_sniff != 1) {
             spi_write_read_blocking(SPI_PORT, spi0_input_buffer,message_buffer, 4); //read from master on left, write to master on left
+            //uint8_t relay_buffer[4];
+            //sleep_ms(1000);
+            /*
+            for (int i = 0; i < 4; i++) {
+              relay_buffer[i] = message_buffer[i];
+            }
+            */
             spi_write_read_blocking(SPI1_PORT, message_buffer, spi0_input_buffer, 4); //write to slave on right, read from slave on right
+            //sleep_ms(1000);
             for (int i = 0; i < 4; i++) {
               printf("message from spi: %x\n", message_buffer[i]);
               printf("message writing to spi: %x\n", message_buffer[i]);
@@ -209,7 +216,7 @@ int main() {
               //spi_write_read_blocking(SPI1_PORT, message_buffer, )
               spi_write_read_blocking(SPI_PORT, spi0_input_buffer, message_buffer, hexa); //read from master on left, write to master on left
               spi_write_read_blocking(SPI1_PORT, injected_input, spi0_input_buffer, hexa); //write to slave with injected input on right, read from slave on right
-              for (int i = 0; i < input_len; i++) {
+              for (int i = 0; i < 4; i++) {
                 printf("messaged from spi1: %x\n", message_buffer[i]);
                 printf("messaged writing to spi1: %x\n", injected_input[i]);
                 printf("received from ruizhe: %x\n", spi0_input_buffer[i]);
