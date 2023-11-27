@@ -8,8 +8,11 @@
 #include "SPIFUNCS/SPIFUNCS.h"
 #include "conversion/conversion.h"
 
-#define UART_ID uart0
-#define BAUD_RATE 115200
+#define UART_COMMS_ID uart1
+#define BAUD_RATE_COMMS 115200
+
+#define UART_CONSOLE_ID uart0
+#define BAUD_RATE_CONSOLE 9600
 
 // Setting the pins for TX and RX.
 #define UART_TX_PIN 16
@@ -18,11 +21,13 @@
 #define UART_TX_PIN_TESTING 8
 #define UART_RX_PIN_TESTING 9
 
-// Setting pin 15 as a pseudo button.
-//const uint GP15_PIN = 15;
+// Redirect stdout to UART_CONSOLE_ID
+FILE __stdout;
+#define stdout (&__stdout)
 
-// Define the maximum length of strings to be injected or sniffed
-const int MAX_STRING_LENGTH = 100;
+
+// Setting pin 15 as a pseudo button.
+// const uint GP15_PIN = 15;
 
 // Declare default string to be sent. (To be changed to dynamic later on)
 char *injectString = "Hello from Pico!\n";
@@ -31,57 +36,64 @@ char *injectString = "Hello from Pico!\n";
 void inject()
 {
   // When inject mode is selected send the string 'Hello from Pico!' through UART0.
-  uart_puts(UART_ID, injectString);
+  uart_puts(UART_COMMS_ID, injectString);
   sleep_ms(200); // Add a small delay after sending the string for consistency
 }
 
 void sniff()
 {
   // When menu selected sniffing mode.
-  char receivedString[MAX_STRING_LENGTH];
+  printf("In Sniff function\n");
+  char receivedString[1024];
   int receivedStringIndex = 0;
 
-  while (uart_is_readable(UART_ID))
+  if (uart_is_readable(UART_COMMS_ID))
   {
-    char receivedChar = uart_getc(UART_ID);
-
-    // Check if the received character is a newline character
-    if (receivedChar == '\n')
+    printf("Data available for reading\n");
+    while (uart_is_readable(UART_COMMS_ID))
     {
-      // If a newline character is received, print the received string
-      printf("Received string: %s\n", receivedString);
+      printf("First line in while loop\n");
+      char receivedChar = uart_getc(UART_COMMS_ID);
+      printf("%c\n", receivedChar);
 
-      // Added line to "forward" recieved message out after printing
-      uart_puts(uart1, receivedString);
-
-      // Reset the received string index and received string
-      receivedStringIndex = 0;
-      memset(receivedString, 0, sizeof(receivedString));
-    }
-    else
-    {
-      // Append the received character to the received string
-      receivedString[receivedStringIndex++] = receivedChar;
-
-      // Check if the received string index reaches the maximum length
-      if (receivedStringIndex >= MAX_STRING_LENGTH)
+      // Check if the received character is a newline character
+      if (receivedChar == '\n')
       {
-        // If the maximum length is reached, reset the received string index
-        // and received string
+        // If a newline character is received, print the received string
+        printf("Received string: %s\n", receivedString);
+
+        // Added line to "forward" recieved message out after printing
+        // uart_puts(uart1, receivedString);
+
+        // Reset the received string index and received string
         receivedStringIndex = 0;
         memset(receivedString, 0, sizeof(receivedString));
+      }
+      else
+      {
+        // Append the received character to the received string
+        receivedString[receivedStringIndex++] = receivedChar;
+
+        // Check if the received string index reaches the maximum length
+        if (receivedStringIndex >= sizeof(receivedString))
+        {
+          // If the maximum length is reached, reset the received string index
+          // and received string
+          receivedStringIndex = 0;
+          memset(receivedString, 0, sizeof(receivedString));
+        }
       }
     }
   }
 }
 
 // Function to test UART1 communication
-// void test_uart1_tx()
-// {
-//   char *testString = "Hello from Pin 8!\n";
-//   uart_puts(uart1, testString); // Change back to UART0 later
-//   sleep_ms(200);
-// }
+void test_tx()
+{
+  char *testString = "Hello from Pin 8!\n";
+  uart_puts(UART_COMMS_ID, testString);
+  sleep_ms(200);
+}
 
 // Function to test UART1 communication
 // void test_uart1_rx()
@@ -126,65 +138,66 @@ int main()
   // Initialize.
   stdio_init_all();
 
+  // Initialize UART0 for serial console
+  uart_init(UART_CONSOLE_ID, BAUD_RATE_CONSOLE);
+
+  // Initialize UART1
+  uart_init(UART_COMMS_ID, BAUD_RATE_COMMS);
+  gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
+  gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
+  printf("UART 1 Initialized\n");
+
   // menu tracker things
   char menu_buffer[1024];
   int in_menu = 0;
   int menu_activated = 1;
 
-  // Initialize UART0 (uart0)
-  uart_init(UART_ID, BAUD_RATE);
-  //   uart_set_format(UART_ID, 8, 1, UART_PARITY_NONE);
-  gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
-  gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
-
-  // Initialize UART1 (uart1) for testing
-  uart_init(uart1, BAUD_RATE);
-  //   uart_set_format(uart1, 8, 1, UART_PARITY_NONE);
-  gpio_set_function(UART_TX_PIN_TESTING, GPIO_FUNC_UART);
-  gpio_set_function(UART_RX_PIN_TESTING, GPIO_FUNC_UART);
-
-  //gpio_init(GP15_PIN);
-
-  // Set GP15 (GPIO15) as an input pin to read its state.
-  //gpio_set_dir(GP15_PIN, GPIO_IN);
-  //gpio_set_pulls(GP15_PIN, true, false);
+  // gpio_set_function(UART_TX_PIN_TESTING, GPIO_FUNC_UART);
+  // gpio_set_function(UART_RX_PIN_TESTING, GPIO_FUNC_UART);
 
   while (true)
   {
-    if (scanf("%s", menu_buffer))
+    // Non-blocking console input
+    if (uart_is_readable(UART_CONSOLE_ID))
     {
-      menu_activated = 0;
+      if (scanf("%s", menu_buffer))
+      {
+        menu_activated = 0;
+      }
     }
+
     if (menu_activated == 0 && in_menu == 0)
     {
       print_menu();
       scanf("%s", menu_buffer);
       in_menu = 1;
-      int uart_menu = 0;
+
       if (strcmp(menu_buffer, "2") == 0)
       {
         // selected UART
 
         printf("1. Sniff\n");
         printf("2. Inject\n");
+
+        int uart_menu = 0;
         scanf("%d", &uart_menu);
 
         if (uart_menu == 1)
         {
-          while (1)
-          {
-            //test_uart1_tx(); // Test function
-            //sleep_ms(10);
-            sniff();
-            sleep_ms(500); // Wait for 0.5 seconds between cycles
-          }
+          // while (1)
+
+          test_tx(); // Test function
+          printf("testString sent\n");
+          sleep_ms(10);
+          sniff();
+          sleep_ms(500); // Wait for 0.5 seconds between cycles
         }
         if (uart_menu == 2)
         {
           inject();
-          //sleep_ms(10);
-          //test_uart1_rx(); // Test function
-          sleep_ms(500);   // Wait for 0.5 seconds between cycles
+          // sleep_ms(10);
+          // test_uart1_rx(); // Test function
+          sleep_ms(500); // Wait for 0.5 seconds between cycles
         }
       }
 
@@ -207,7 +220,6 @@ int main()
         printf("1. Sniff");
         printf("\n2. Inject\n");
         scanf("%d", &spi_menu);
-
         if (spi_menu == 1) {
           int in_spi_sniff = 0;
           // get number of bytes to sniff
@@ -261,6 +273,8 @@ int main()
         }
       }
     }
-
-  return 0;
+    // Reset menu_activated after processing the menu
+    menu_activated = 1;
+    return 0;
   }
+
