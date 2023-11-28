@@ -24,13 +24,33 @@ This project aims to develop an integrated Embedded Forensic Tool utilizing the 
     1. Pseudo buttons to select protocol.
     2. Device able to detect protocol being used.
 
-## Work Package:
-|Header1|Header2|Header3|
+## SPI Connection:
+[!NOTE] All Pin numbers are GPIO numbers, not the actual Pin number 
+| Other Devices | SPI 0 | SPI 1 |
 | --- | --- | --- |
-| This | is a | table |
-| This | is 2nd | row |
-| This | is 3rd | row |
+| MISO | 19 | 11 |
+| MOSI | 16 | 12 |
+| SCK | 18 | 10 |
+| CS | 17 | 13 |
+Sniffing: Connect GPIO 2 to GND
+Injecting: Connect GPIO 2 to GPIO 0
 
+## I2C Connection:
+| Other Devices | I2C 0 | I2C 1 |
+| --- | --- | --- |
+| SDA | 4 | 31 |  
+| SCL | 5 | 32 |
+Sniffing: Connect GPIO 3 to GND
+Injecting: Connect GPIO 3 to GPIO 0
+
+
+## UART Connection:
+| Other Devices | UART 0 | UART 1 |
+| --- | --- | --- |
+| TX | 5 | 17 |
+| RX | 4 | 16 |
+Sniffing: Connect GPIO 1 to GND
+Injecting: Connect GPIO 1 to GPIO 0 
 ## Block and Flow Diagrams
 
 ![Block Diagram](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/Block.png "Block_Diagram")
