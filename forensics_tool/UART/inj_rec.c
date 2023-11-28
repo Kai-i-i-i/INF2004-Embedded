@@ -205,8 +205,8 @@ int main()
       {
         int spi_menu = 0;
         //initialize spi buffers
-        uint8_t message_buffer[1024];
-        uint8_t spi0_input_buffer[1024];
+        //uint8_t message_buffer[1024];
+        //uint8_t spi0_input_buffer[1024];
 
         // not being used for now, need to test the below buffers
         // uint8_t spi1_input_buffer[1024];
@@ -226,46 +226,59 @@ int main()
           int number_of_bytes_input;
           printf("How many bytes of data do you want to sniff at a time?: \n");
           scanf("%d", number_of_bytes_input);
+
+          //create buffers for spi
+          uint8_t *write_buffer = create_buffers(number_of_bytes_input);
+          uint8_t *read_buffer = create_buffers(number_of_bytes_input);
           while (in_spi_sniff != 1) {
-            spi_write_read_blocking(SPI_PORT, spi0_input_buffer,message_buffer, number_of_bytes_input); // write to master on left, read from master on left,
+            //spi_write_read_blocking(SPI_PORT, spi0_input_buffer,message_buffer, number_of_bytes_input); // write to master on left, read from master on left,
             /*
             for (int i = 0; i < 4; i++) {
               relay_buffer[i] = message_buffer[i];
             }
             */
-            spi_write_read_blocking(SPI1_PORT, message_buffer, spi0_input_buffer, number_of_bytes_input); // write to slave on right, read from slave on right
-
+            //spi_write_read_blocking(SPI1_PORT, message_buffer, spi0_input_buffer, number_of_bytes_input); // write to slave on right, read from slave on right
+            sniff_spi(write_buffer, read_buffer, number_of_bytes_input);
             //printing of output/logs
-            for (int i = 0; i < 4; i++) {
-              printf("Message from spi0: %x\n", message_buffer[i]);
-              printf("Message write to spi1: %x\n", message_buffer[i]);
-              printf("Message from spi1: %x\n", spi0_input_buffer[i]);
-              printf("Message write to spi0: %x\n", spi0_input_buffer[i]);
+            for (int i = 0; i < number_of_bytes_input; i++) {
+              printf("Message from spi0: %x\n", read_buffer[i]);
+              printf("Message write to spi1: %x\n", read_buffer[i]);
+              printf("Message from spi1: %x\n", write_buffer[i]);
+              printf("Message write to spi0: %x\n", write_buffer[i]);
             }
           }
         }
         if (spi_menu == 2)
         {
-          uint8_t injected_input[1024];
+
           char user_hex_input[1024];
+
           // get user input as string
           printf("Enter bytes to send (eg. ff00112233): ");
           scanf("%s", user_hex_input);
+
           // convert the string to actual hex
           int input_len = count_char(user_hex_input);
+          uint8_t *injected_input = create_buffers(input_len);
           size_t hexa = convert_hex(injected_input, input_len, user_hex_input);
+
+          //create the buffers for spi
+          uint8_t *write_buffer = create_buffers(hexa);
+          uint8_t *read_buffer = create_buffers(hexa);
+
           int in_spi_inject = 0;
           while (in_spi_inject != 1) {
               // writing of injected bytes to slave, and relaying appropriate bytes back to master
-              spi_write_read_blocking(SPI_PORT, spi0_input_buffer, message_buffer, hexa); //read from master on left, write to master on left
-              spi_write_read_blocking(SPI1_PORT, injected_input, spi0_input_buffer, hexa); //write to slave with injected input on right, read from slave on right
+              //spi_write_read_blocking(SPI_PORT, write_buffer, read_buffer, hexa); //read from master on left, write to master on left
+              //spi_write_read_blocking(SPI1_PORT, injected_input, write_buffer, hexa); //write to slave with injected input on right, read from slave on right
 
+              inject_spi(write_buffer, read_buffer, injected_input, hexa);
               // printing of output/logs
-              for (int i = 0; i < 4; i++) {
-                printf("messaged from spi0: %x\n", message_buffer[i]);
+              for (int i = 0; i < hexa; i++) {
+                printf("messaged from spi0: %x\n", read_buffer[i]);
                 printf("messaged writing to spi1: %x\n", injected_input[i]);
-                printf("received from spi1: %x\n", spi0_input_buffer[i]);
-                printf("message write to spi0: %x\n", spi0_input_buffer[i]);
+                printf("received from spi1: %x\n", write_buffer[i]);
+                printf("message write to spi0: %x\n", write_buffer[i]);
                 printf("\n");
               }
             }
