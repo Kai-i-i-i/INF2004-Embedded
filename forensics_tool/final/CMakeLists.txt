@@ -1,4 +1,5 @@
 add_subdirectory(spireceiver)
+add_subdirectory(spisender)
 add_subdirectory(uartsender)
 add_subdirectory(uartreceiver)
 add_subdirectory(spifuncs)
