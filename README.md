@@ -23,7 +23,8 @@ This project aims to develop an integrated Embedded Forensic Tool utilizing the 
 9. Hardware interface to identify which communication protocol is being used by target device.
     1. Pseudo buttons to select protocol.
     2. Device able to detect protocol being used.
-
+![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/spi_sniff.jpg)
+![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/spi_inject.jpg)
 ## SPI Connection:
 [!NOTE] All Pin numbers are GPIO numbers, not the actual Pin number 
 | Other Devices | SPI 0 | SPI 1 |
@@ -32,23 +33,29 @@ This project aims to develop an integrated Embedded Forensic Tool utilizing the 
 | MOSI | 16 | 12 |
 | SCK | 18 | 10 |
 | CS | 17 | 13 |
+
 Sniffing: Connect GPIO 2 to GND
 Injecting: Connect GPIO 2 to GPIO 0
 
+![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/i2c_sniff.jpg)
+![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/i2c_inject.jpg)
 ## I2C Connection:
 | Other Devices | I2C 0 | I2C 1 |
 | --- | --- | --- |
 | SDA | 4 | 31 |  
 | SCL | 5 | 32 |
+
 Sniffing: Connect GPIO 3 to GND
 Injecting: Connect GPIO 3 to GPIO 0
 
-
+![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/uart_sniff.jpg)
+![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/uart_inject.jpg)
 ## UART Connection:
 | Other Devices | UART 0 | UART 1 |
 | --- | --- | --- |
 | TX | 5 | 17 |
 | RX | 4 | 16 |
+
 Sniffing: Connect GPIO 1 to GND
 Injecting: Connect GPIO 1 to GPIO 0 
 ## Block and Flow Diagrams
