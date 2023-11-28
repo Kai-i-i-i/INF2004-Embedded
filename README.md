@@ -28,8 +28,8 @@ This project aims to develop an integrated Embedded Forensic Tool utilizing the 
 ⚠️Note: All SPI, I2C and UART Pin numbers are GPIO numbers, not the actual Pin number 
 
 ## SPI Connection:
-![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/spi_sniff.jpg)
-![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/spi_inject.jpg)
+![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/spi_sniff.png)
+![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/spi_inject.png)
 
 | Other Devices | SPI 0 | SPI 1 |
 | --- | --- | --- |
@@ -42,8 +42,8 @@ Sniffing: Connect GPIO 2 to GND\
 Injecting: Connect GPIO 2 to GPIO 0
 
 ## I2C Connection:
-![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/i2c_sniff.jpg)
-![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/i2c_inject.jpg)
+![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/i2c_sniff.png)
+![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/i2c_inject.png)
 
 | Other Devices | I2C 0 | I2C 1 |
 | --- | --- | --- |
@@ -54,8 +54,8 @@ Sniffing: Connect GPIO 3 to GND\
 Injecting: Connect GPIO 3 to GPIO 0
 
 ## UART Connection:
-![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/uart_sniff.jpg)
-![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/uart_inject.jpg)
+![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/uart_sniff.png)
+![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/uart_inject.png)
 
 | Other Devices | UART 0 | UART 1 |
 | --- | --- | --- |
