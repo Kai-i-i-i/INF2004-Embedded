@@ -9,7 +9,7 @@ add_executable(selectModule
         selectModule.c
         )
 # pull in common dependencies
-target_link_libraries(selectModule pico_stdlib spi_functions conversion_functions)
+target_link_libraries(selectModule pico_stdlib spi_functions conversion_functions hardware_spi)
 
 # create map/bin/hex file etc.
 pico_add_extra_outputs(selectModule)
