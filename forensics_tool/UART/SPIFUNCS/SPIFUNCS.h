@@ -16,9 +16,11 @@
 #define SPI1_CS_PIN 13
 #define SPI1_PORT spi1
 
-int read_from_spi(spi_inst_t* spi, uint8_t message_buffer[4]);
+uint8_t *create_buffers(int number_of_bytes);
 
-int write_to_spi(spi_inst_t* spi, uint8_t message_bufer[4]);
+void sniff_spi(uint8_t *write_buffer, uint8_t *read_buffer, int number_of_bytes);
+
+void inject_spi(uint8_t *write_buffer, uint8_t *read_buffer, uint8_t *inject_buffer, size_t number_of_bytes);
 
 void init_spi_pins(spi_inst_t* spi, uint baudrate, uint spi_rx, uint spi_tx, uint spi_sclk, uint spi_cs);
 
