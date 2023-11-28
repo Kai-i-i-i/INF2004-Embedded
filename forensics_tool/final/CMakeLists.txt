@@ -1,6 +1,6 @@
-add_subdirectory(spi)
-add_subdirectory(sender)
-add_subdirectory(receiver)
+add_subdirectory(spireceiver)
+add_subdirectory(uartsender)
+add_subdirectory(uartreceiver)
 
 add_executable(selectModule
         selectModule.c
