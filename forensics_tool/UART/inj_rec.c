@@ -275,10 +275,10 @@ int main()
               inject_spi(write_buffer, read_buffer, injected_input, hexa);
               // printing of output/logs
               for (int i = 0; i < hexa; i++) {
-                printf("messaged from spi0: %x\n", read_buffer[i]);
-                printf("messaged writing to spi1: %x\n", injected_input[i]);
-                printf("received from spi1: %x\n", write_buffer[i]);
-                printf("message write to spi0: %x\n", write_buffer[i]);
+                printf("Messaged from spi0: %x\n", read_buffer[i]);
+                printf("Messaged writing to spi1: %x\n", injected_input[i]);
+                printf("Received from spi1: %x\n", write_buffer[i]);
+                printf("Message write to spi0: %x\n", write_buffer[i]);
                 printf("\n");
               }
             }
