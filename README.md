@@ -31,39 +31,39 @@ This project aims to develop an integrated Embedded Forensic Tool utilizing the 
 ![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/spi_sniff.jpg)
 ![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/spi_inject.jpg)
 
-| Other Devices | SPI 0 | SPI 1 |
+| Other Devices (Sender) | SPI 0 (Middle) | SPI 1 (Receiver)|
 | --- | --- | --- |
 | MISO | 19 | 11 |
 | MOSI | 16 | 12 |
 | SCK | 18 | 10 |
 | CS | 17 | 13 |
 
-Sniffing: Connect GPIO 2 to GND\
-Injecting: Connect GPIO 2 to GPIO 0
+Sniffing: Connect GPIO 2 to GND  (SPI 0)\
+Injecting: Connect GPIO 2 to GND and GPIO 0 to opposite GND 
 
 ## I2C Connection:
 ![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/i2c_sniff.jpg)
 ![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/i2c_inject.jpg)
 
-| Other Devices | I2C 0 | I2C 1 |
+| Other Devices (Sender) | I2C 0 (Middle) | I2C 1 (Receiver) |
 | --- | --- | --- |
-| SDA | 4 | 31 |  
-| SCL | 5 | 32 |
+| SDA | 4 | 6 |  
+| SCL | 5 | 7 |
 
 Sniffing: Connect GPIO 3 to GND\
-Injecting: Connect GPIO 3 to GPIO 0
+Injecting: Connect GPIO 3 to GND and GPIO 0 to opposite GND
 
 ## UART Connection:
 ![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/uart_sniff.jpg)
 ![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/uart_inject.jpg)
 
-| Other Devices | UART 0 | UART 1 |
-| --- | --- | --- |
-| TX | 5 | 17 |
-| RX | 4 | 16 |
+| Other Devices (Sender) | UART 0 (Receiver) |
+| --- | --- |
+| TX | 8 | 
+| RX | 9 | 
 
 Sniffing: Connect GPIO 1 to GND\
-Injecting: Connect GPIO 1 to GPIO 0 
+Injecting: Connect GPIO 1 to GND and GPIO 0 to opposite GND 
 ## Block and Flow Diagrams
 
 ![Block Diagram](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/Block.png "Block_Diagram")
