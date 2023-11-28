@@ -1,12 +1,14 @@
 add_subdirectory(spi)
 add_subdirectory(sender)
 add_subdirectory(receiver)
+add_subdirectory(spifuncs)
+add_subdirectory(conversion)
 
 add_executable(selectModule
         selectModule.c
         )
 # pull in common dependencies
-target_link_libraries(selectModule pico_stdlib)
+target_link_libraries(selectModule pico_stdlib spi_functions conversion_functions)
 
 # create map/bin/hex file etc.
 pico_add_extra_outputs(selectModule)
