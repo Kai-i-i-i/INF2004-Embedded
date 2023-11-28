@@ -9,8 +9,8 @@
 
 #define SNIFFBUTTON 0
 #define UARTBUTTON 1
-#define I2CBUTTON 2
-#define SPIBUTTON 3
+#define I2CBUTTON 3
+#define SPIBUTTON 2
 #define RXBUTTON 9
 #define TXBUTTON 8
 #define UART_ID uart1
@@ -128,7 +128,7 @@ int main(){
                     // get user input as string
                     char user_hex_input[1024];
                     printf("Enter bytes to send (eg. ff00112233): ");
-                    scanf("%s", user_hex_input);
+                    scanf(" %s", user_hex_input);
 
                     // convert the string to actual hex
                     int input_len = count_char(user_hex_input);
@@ -157,15 +157,24 @@ int main(){
 
                     //get user injected input
                     int number_of_bytes_input;
+                    int do_sniff = 0;
                     printf("How many bytes of data do you want to sniff at a time?: \n");
-                    scanf("%d", number_of_bytes_input);
+                    scanf(" %d", &number_of_bytes_input);
+                    //fgets(number_of_bytes_input, 1, stdin);
+                    //int number = number_of_bytes_input[0] - '0';
+                    printf("number: %d", number_of_bytes_input);
 
                     //create buffers for spi
                     uint8_t *write_buffer = create_buffers(number_of_bytes_input);
                     uint8_t *read_buffer = create_buffers(number_of_bytes_input);
+                    printf("after buffer");
+                    do_sniff = 1;
 
                     //inject user input into spi1 and relay appropriate messages between master and slave
-                    while (1) {
+                    while (do_sniff == 1) {
+                        //printf("%d", number_of_bytes_input);
+                        //printf("%d", test);
+                        printf("in loop");
                         sniff_spi(write_buffer, read_buffer, number_of_bytes_input);
                         //printing of output/logs
                         for (int i = 0; i < number_of_bytes_input; i++) {

@@ -17,3 +17,4 @@ pico_add_extra_outputs(selectModule)
 example_auto_set_url(selectModule)
 
 pico_enable_stdio_usb(selectModule 1)
+pico_enable_stdio_uart(selectModule 1)
