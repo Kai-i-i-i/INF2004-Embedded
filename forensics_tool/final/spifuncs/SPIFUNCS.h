@@ -16,12 +16,16 @@
 #define SPI1_CS_PIN 13
 #define SPI1_PORT spi1
 
+//function to create read/write buffers
 uint8_t *create_buffers(int number_of_bytes);
 
+//function to start spi snififng
 void sniff_spi(uint8_t *write_buffer, uint8_t *read_buffer, int number_of_bytes);
 
+//function to start spi inject
 void inject_spi(uint8_t *write_buffer, uint8_t *read_buffer, uint8_t *inject_buffer, size_t number_of_bytes);
 
+//function to init spi pins
 void init_spi_pins(spi_inst_t* spi, uint baudrate, uint spi_rx, uint spi_tx, uint spi_sclk, uint spi_cs);
 
 #endif //SPIFUNCS_H_

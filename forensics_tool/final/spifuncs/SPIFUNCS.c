@@ -6,8 +6,8 @@
 #include "SPIFUNCS.h"
 
 void init_spi_pins(spi_inst_t* spi, uint baudrate, uint spi_rx, uint spi_tx, uint spi_sclk, uint spi_cs) {
+    
     spi_init(spi, baudrate); //initialize spi0 at 500000kHz
-
     gpio_set_function(spi_rx, GPIO_FUNC_SPI);
     gpio_set_function(spi_tx, GPIO_FUNC_SPI);
     gpio_set_function(spi_sclk, GPIO_FUNC_SPI);
@@ -31,10 +31,11 @@ void inject_spi(uint8_t *write_buffer, uint8_t *read_buffer, uint8_t *inject_buf
 }
 
 uint8_t *create_buffers(int number_of_bytes) {
+
     uint8_t *temp_buffer;
     temp_buffer = malloc(sizeof(uint8_t) * number_of_bytes);
+    //set the buffer to all 0s
     memset(temp_buffer, 0, sizeof(uint8_t) * number_of_bytes);
-
     return temp_buffer;
 }
 
