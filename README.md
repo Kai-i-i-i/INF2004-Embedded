@@ -41,18 +41,6 @@ This project aims to develop an integrated Embedded Forensic Tool utilizing the 
 Sniffing: Connect GPIO 2 to GND  (SPI 0)\
 Injecting: Connect GPIO 2 to GND and GPIO 0 to opposite GND 
 
-## I2C Connection:
-![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/i2c_sniff.png)
-![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/i2c_inject.png)
-
-| Other Devices (Sender) | I2C 0 (Middle) | I2C 1 (Receiver) |
-| --- | --- | --- |
-| SDA | 4 | 6 |  
-| SCL | 5 | 7 |
-
-Sniffing: Connect GPIO 3 to GND\
-Injecting: Connect GPIO 3 to GND and GPIO 0 to opposite GND
-
 ## UART Connection:
 ![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/uart_sniff.png)
 ![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/uart_inject.png)
