@@ -28,23 +28,10 @@ void init(){
         gpio_set_dir(i, 0);
         gpio_set_pulls(i,1,0);
     }
-    // gpio_init(SNIFFBUTTON);
-    // gpio_init(UARTBUTTON);
-    // gpio_init(I2CBUTTON);
-    // gpio_init(SPIBUTTON);
-    // gpio_set_dir(SNIFFBUTTON, GPIO_IN);
-    // gpio_set_dir(UARTBUTTON, GPIO_IN);
-    // gpio_set_dir(I2CBUTTON, GPIO_IN);
-    // gpio_set_dir(SPIBUTTON, GPIO_IN);
-    // gpio_set_pulls(SNIFFBUTTON, true, false);
-    // gpio_set_pulls(UARTBUTTON, true, false);
-    // gpio_set_pulls(I2CBUTTON, true, false);
-    // gpio_set_pulls(SPIBUTTON, true, false);
 }
 
 void init_uart(){
     uart_init(UART_ID, BAUDRATE);
-    // uart_set_fifo_enabled(UART_ID, false);
     gpio_set_function(RXBUTTON, GPIO_FUNC_UART);
     gpio_set_function(TXBUTTON, GPIO_FUNC_UART);
     uartInitFlag=1;
@@ -60,8 +47,6 @@ bool debounce(bool state){
 }
 
 int getState(){
-    // state = gpio_get(UARTBUTTON);
-    // uartState = (state==0) ? 1 : 0;
     injectState = (gpio_get(SNIFFBUTTON)) ? 0: 1; 
     int uartState = (gpio_get(UARTBUTTON)) ? 0 : 2;
     int i2cState = (gpio_get(I2CBUTTON)) ? 0 : 4;
@@ -105,6 +90,9 @@ void uartMode(){
 
 int main(){
     init();
+    init_spi_pins(SPI_PORT, 500000, SPI0_RX_PIN, SPI0_TX_PIN, SPI0_SCLK_PIN, SPI0_CS_PIN);
+    init_spi_pins(SPI1_PORT, 500000, SPI1_RX_PIN, SPI1_TX_PIN, SPI1_SCLK_PIN, SPI1_CS_PIN);
+    spi_set_slave(SPI_PORT, true);
     while(true){
         int state = getState();
         switch(state){
@@ -118,34 +106,29 @@ int main(){
                 printf("SPI ");
 
                 //init spi spins
-                init_spi_pins(SPI_PORT, 500000, SPI0_RX_PIN, SPI0_TX_PIN, SPI0_SCLK_PIN, SPI0_CS_PIN);
-                init_spi_pins(SPI1_PORT, 500000, SPI1_RX_PIN, SPI1_TX_PIN, SPI1_SCLK_PIN, SPI1_CS_PIN);
-                spi_set_slave(SPI_PORT, true);
+
 
                 if (injectState) {
                     //inject
 
-                    // get user input as string
-                    char user_hex_input[1024];
-                    printf("Enter bytes to send (eg. ff00112233): ");
-                    scanf(" %s", user_hex_input);
-
-                    // convert the string to actual hex
-                    int input_len = count_char(user_hex_input);
-                    uint8_t *injected_input = create_buffers(input_len);
-                    size_t hexa = convert_hex(injected_input, input_len, user_hex_input);
+                    uint8_t hardcoded_inject[4];
+                    hardcoded_inject[0] = 0x99;
+                    hardcoded_inject[1] = 0x12;
+                    hardcoded_inject[2] = 0x34;
+                    hardcoded_inject[3] = 0x56;
 
                     //create the buffers for spi
-                    uint8_t *write_buffer = create_buffers(hexa);
-                    uint8_t *read_buffer = create_buffers(hexa);
+                    uint8_t *write_buffer = create_buffers(4);
+                    uint8_t *read_buffer = create_buffers(4);
 
                     // writing of injected bytes to slave, and relaying appropriate bytes back to master
                     while (1) {
-                        inject_spi(write_buffer, read_buffer, injected_input, hexa);
+                        inject_spi(write_buffer, read_buffer, hardcoded_inject, 4);
+
                         // printing of output/logs
-                        for (int i = 0; i < hexa; i++) {
+                        for (int i = 0; i < 4; i++) {
                             printf("Messaged from spi0: %x\n", read_buffer[i]);
-                            printf("Messaged writing to spi1: %x\n", injected_input[i]);
+                            printf("Messaged writing to spi1: %x\n", hardcoded_inject[i]);
                             printf("Received from spi1: %x\n", write_buffer[i]);
                             printf("Message write to spi0: %x\n", write_buffer[i]);
                             printf("\n");
@@ -155,29 +138,20 @@ int main(){
                 else {
                     //spi sniff
 
-                    //get user injected input
-                    int number_of_bytes_input;
+                    int number = 4;
                     int do_sniff = 0;
-                    printf("How many bytes of data do you want to sniff at a time?: \n");
-                    scanf(" %d", &number_of_bytes_input);
-                    //fgets(number_of_bytes_input, 1, stdin);
-                    //int number = number_of_bytes_input[0] - '0';
-                    printf("number: %d", number_of_bytes_input);
 
                     //create buffers for spi
-                    uint8_t *write_buffer = create_buffers(number_of_bytes_input);
-                    uint8_t *read_buffer = create_buffers(number_of_bytes_input);
-                    printf("after buffer");
+                    uint8_t *write_buffer = create_buffers(number);
+                    uint8_t *read_buffer = create_buffers(number);
+
                     do_sniff = 1;
 
-                    //inject user input into spi1 and relay appropriate messages between master and slave
+                    //perform sniffing
                     while (do_sniff == 1) {
-                        //printf("%d", number_of_bytes_input);
-                        //printf("%d", test);
-                        printf("in loop");
-                        sniff_spi(write_buffer, read_buffer, number_of_bytes_input);
+                        sniff_spi(write_buffer, read_buffer, number);
                         //printing of output/logs
-                        for (int i = 0; i < number_of_bytes_input; i++) {
+                        for (int i = 0; i < number; i++) {
                             printf("Message from spi0: %x\n", read_buffer[i]);
                             printf("Message write to spi1: %x\n", read_buffer[i]);
                             printf("Message from spi1: %x\n", write_buffer[i]);
@@ -190,12 +164,7 @@ int main(){
                 printf("None plugged\n");
                 break;
         }
-        // printf("%d",state);
         sleep_ms(200);
     }
-    // gpio_set_irq_enabled_with_callback(UARTBUTTON, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &uart_irq_handler);
-    // for(;;){
-    //     sleep_ms(UINT32_MAX);
-    // }
     return 0;
 }
