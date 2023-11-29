@@ -25,7 +25,7 @@ This project aims to develop an integrated Embedded Forensic Tool utilizing the 
     2. Device able to detect protocol being used.
 
 ## Warning
-⚠️Note: All SPI, I2C and UART Pin numbers are GPIO numbers, not the actual Pin number 
+⚠️Note: All SPI and UART Pin numbers are GPIO numbers, not the actual Pin number 
 
 ## SPI Connection:
 ![image](https://github.com/Kai-i-i-i/INF2004-Embedded/blob/main/diagrams/spi_sniff.png)
